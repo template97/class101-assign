@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter, Redirect} from "react-router-dom";
+import {Route, BrowserRouter} from "react-router-dom";
 import {Products, Cart} from './route'
 
 function App() {
