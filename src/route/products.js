@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import Pagination from "material-ui-flat-pagination";
+import Button from '@material-ui/core/Button';
 
 import {Item} from '../component'
 
-const productItems = [
+let productItems = [
     {
       id: 'B9vUv0E0ibc0X55kVVLr',
       title: '포근한 니트로 만드는 나만의 글씨, 봉봉메이드 니트레터링 클래스',
@@ -96,21 +97,49 @@ const productItems = [
   ];
 const paginationSize = 5;
 
+
 class Products extends Component {
     constructor(props) {
         super(props);
-        this.state = { offset: 0 };
+
 
         productItems.sort(function(a, b) {
             return b.score - a.score;
         });
 
-      }
+        let selected = [];
+        productItems.map(function(data){
+            selected[data.id] = false;
+        });
+
+        this.state = { 
+            offset: 0,
+            itemSelected: selected
+        };
+    }
      
     handleClick = (o) => {
         this.setState({ 
             offset: o
         });
+    }
+
+    handleCancel = (data) => {
+        let nextSelected = this.state.itemSelected;
+        nextSelected[data.id] = false;
+        
+        this.setState({
+            itemSelected: nextSelected
+        })        
+    }
+
+    handleSelect = (data) => {
+        let nextSelected = this.state.itemSelected;
+        nextSelected[data.id] = true;
+        
+        this.setState({
+            itemSelected: nextSelected
+        })
     }
     
     render() {
@@ -119,7 +148,13 @@ class Products extends Component {
         let items = (
             <div className="itemDisplay">
                 {selectedData.map(data => (
-                    <Item data={data}/>
+                    <div>
+                        <Item data={data}/>
+                        {this.state.itemSelected[data.id]
+                            ? <Button onClick={() => this.handleCancel(data)}>빼기</Button> 
+                            : <Button onClick={() => this.handleSelect(data)}>담기</Button>
+                        }
+                    </div>
                 ))}
             </div>
         )
