@@ -161,7 +161,7 @@ class Products extends Component {
             <div className="itemDisplay">
                 {selectedData.map(data => (
                     <div>
-                        <Item data={data}/>
+                        <Item data={data} type={1}/>
                         {this.state.itemSelected[data.id]
                             ? <Button onClick={() => this.handleCancel(data)}>빼기</Button> 
                             : <Button onClick={() => this.handleSelect(data)}>담기</Button>

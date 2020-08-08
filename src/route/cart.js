@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import {Item} from '../component'
 
 let productItems = [
@@ -95,6 +96,19 @@ let productItems = [
     }
   ];
 
+let coupons = [
+    {
+      type: 'rate',
+      title: '10% 할인 쿠폰',
+      discountRate: 10,
+    },
+    {
+      type: 'amount',
+      title: '10,000원 할인 쿠폰',
+      discountAmount: 10000,
+    }
+  ];
+  
 class Cart extends Component {
     constructor(props){
         super(props);
@@ -102,32 +116,68 @@ class Cart extends Component {
         productItems.sort(function(a, b) {
             return b.score - a.score;
         });
-        
-        let selected = {};
-        var temp = JSON.parse(localStorage.getItem('itemSelected')) || [];
 
+        let selected = {};
+        let checked = {};
+        productItems.map(function(data){
+            selected[data.id] = false;
+            checked[data.id] = false;
+        });
+
+        var temp = JSON.parse(localStorage.getItem('itemSelected')) || [];
         if (temp !== null && temp.length !== 0){
             selected = temp;
         }
-        else{
-            productItems.map(function(data){
-               selected[data.id] = false;
-            });
+
+        let tempCouponChecked = {};
+        for(var key in coupons){
+            tempCouponChecked[key] = false;
         }
         this.state = { 
-            itemSelected: temp
+            itemSelected: selected,
+            itemChecked: checked,
+            couponChecked: tempCouponChecked,
         };
 
-     }
+    }
+
+    handleChange = (event) => {
+        console.log(event.target.name);
+        let temp = this.state.itemChecked;
+        temp[event.target.name] = event.target.checked;
+        this.setState({ 
+            itemChecked: temp
+        });
+    };
+
+    handleCoupon = (event) => {
+        let temp = this.state.couponChecked;
+        temp[event.target.name] = event.target.checked;
+        this.setState({ 
+            couponChecked: temp
+        });
+    };
+
     render () {
-       
-        
         let items = (
             <div>
                 {productItems.map(data => (
                     <div>
                         {this.state.itemSelected[data.id]
-                            ? <Item data={data}/> 
+                            ? <div>
+                                <FormControlLabel
+                                    control={
+                                    <Checkbox
+                                        checked={this.state.itemChecked[data.id]}
+                                        onChange={this.handleChange}
+                                        name={data.id}
+                                        color="primary"
+                                    />
+                                    }
+                                    label="구매하기"
+                                />
+                                <Item data={data} type={2}/> 
+                            </div>
                             : null 
                         }
                     </div>
@@ -135,9 +185,59 @@ class Cart extends Component {
             </div>
         )
 
+       
+        let coupon = (
+            
+            coupons.map( (data, index) => (
+                <div>
+                    <FormControlLabel
+                        control={
+                        <Checkbox
+                            checked={this.state.couponChecked[index]}
+                            onChange={this.handleCoupon}
+                            name={index}
+                            color="primary"
+                        />
+                        }
+                        label={data.title}
+                    />
+                </div>
+            ))
+
+        )
+
+        let totalRateDiscount = 1;
+        let totalAmountDiscount = 0;
+        for (var key in coupons){
+            if(this.state.couponChecked[key]){
+                let data = coupons[key];
+                if(data.type === 'rate')
+                    totalRateDiscount *= (1 - (Number(data.discountRate) / 100) );
+                else if(data.type === 'amount')
+                    totalAmountDiscount += Number(data.discountAmount);
+            }
+        }
+        let totalPrice = 0;       
+        let couponAvailable = false; 
+        for (var key in productItems){
+            let data = productItems[key];
+            if(this.state.itemChecked[data.id]){
+                if( data.hasOwnProperty('availableCoupon') && !data.availableCoupon)
+                    totalPrice += Number(data.price);
+                else{
+                    totalPrice += (Number(data.price) * totalRateDiscount);
+                    couponAvailable = true;
+                }
+            }
+        }
+        if(couponAvailable) totalPrice -= totalAmountDiscount;
+        totalPrice = (totalPrice < 0) ? 0 : totalPrice;
+
         return (
             <div>
                 {items}
+                {coupon}
+                <div>총 금액 : {totalPrice}</div>
                 <Link to={'/products'}><button>돌아가기</button></Link>
             </div>
         )
