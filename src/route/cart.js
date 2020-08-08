@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
+import {Item} from '../component'
+
 let productItems = [
     {
       id: 'B9vUv0E0ibc0X55kVVLr',
@@ -97,6 +99,10 @@ class Cart extends Component {
     constructor(props){
         super(props);
 
+        productItems.sort(function(a, b) {
+            return b.score - a.score;
+        });
+        
         let selected = {};
         var temp = JSON.parse(localStorage.getItem('itemSelected')) || [];
 
@@ -111,10 +117,27 @@ class Cart extends Component {
         this.state = { 
             itemSelected: temp
         };
-    }
+
+     }
     render () {
+       
+        
+        let items = (
+            <div>
+                {productItems.map(data => (
+                    <div>
+                        {this.state.itemSelected[data.id]
+                            ? <Item data={data}/> 
+                            : null 
+                        }
+                    </div>
+                ))}
+            </div>
+        )
+
         return (
             <div>
+                {items}
                 <Link to={'/products'}><button>돌아가기</button></Link>
             </div>
         )
