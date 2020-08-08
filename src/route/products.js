@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Pagination from "material-ui-flat-pagination";
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 import {Item} from '../component'
 
@@ -107,11 +108,18 @@ class Products extends Component {
             return b.score - a.score;
         });
 
-        let selected = [];
-        productItems.map(function(data){
-            selected[data.id] = false;
-        });
-
+        let selected = {};
+		let temp = JSON.parse(localStorage.getItem('itemSelected')) || [];
+		
+        if (temp !== null && temp.length !== 0){
+		 	selected = temp;
+		}
+        else{
+        	productItems.map(function(data){
+            	selected[data.id] = false;
+			});
+		}
+        
         this.state = { 
             offset: 0,
             itemSelected: selected
@@ -131,6 +139,8 @@ class Products extends Component {
         this.setState({
             itemSelected: nextSelected
         })        
+		console.log(  JSON.stringify(nextSelected));
+        localStorage.setItem('itemSelected',  JSON.stringify(nextSelected));
     }
 
     handleSelect = (data) => {
@@ -140,6 +150,8 @@ class Products extends Component {
         this.setState({
             itemSelected: nextSelected
         })
+		console.log(  JSON.stringify(nextSelected));
+        localStorage.setItem('itemSelected',  JSON.stringify(nextSelected));
     }
     
     render() {
@@ -167,6 +179,7 @@ class Products extends Component {
                     total={productItems.length}
                     onClick={(e, offset) => this.handleClick(offset)}
                 />
+                <Link to={'/cart'}><button>장바구니</button></Link>
             </div>
         );
     }
