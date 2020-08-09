@@ -5,7 +5,7 @@ import {Products, Cart} from './route'
 function App() {
   return (
     <BrowserRouter>
-      <Route path="/" exact component={null} />
+      <Route path="/" exact component={Products} />
       <Route path="/products" component={Products} />
       <Route path="/cart" component={Cart} />
     </BrowserRouter>

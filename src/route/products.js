@@ -104,6 +104,9 @@ class Products extends Component {
         super(props);
 
 
+		if( this.props.location.pathname !== '/products')
+			this.props.history.replace('products');
+		
         productItems.sort(function(a, b) {
             return b.score - a.score;
         });
