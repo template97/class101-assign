@@ -218,25 +218,29 @@ class Cart extends Component {
             }
         }
         let totalPrice = 0;       
+        let discountedPrice = 0;
         let couponAvailable = false; 
         for (var key in productItems){
             let data = productItems[key];
             if(this.state.itemChecked[data.id]){
+                totalPrice += Number(data.price);
                 if( data.hasOwnProperty('availableCoupon') && !data.availableCoupon)
-                    totalPrice += Number(data.price);
+                    discountedPrice += Number(data.price);
                 else{
-                    totalPrice += (Number(data.price) * totalRateDiscount);
+                    discountedPrice += (Number(data.price) * totalRateDiscount);
                     couponAvailable = true;
                 }
             }
         }
-        if(couponAvailable) totalPrice -= totalAmountDiscount;
-        totalPrice = (totalPrice < 0) ? 0 : totalPrice;
+        if(couponAvailable) discountedPrice -= totalAmountDiscount;
+        discountedPrice = (discountedPrice < 0) ? 0 : discountedPrice;
 
         return (
             <div>
                 <div className="mainTitle">Class 101</div>
-                <div>총 금액 : {totalPrice}</div>
+                <div>판매 금액 : {totalPrice}</div>
+                <div>쿠폰 할인 : {totalPrice-discountedPrice}</div>
+                <div>최종 금액 : {discountedPrice}</div>
                 {items}
                 {coupon}
                 <div>총 금액 : {totalPrice}</div>

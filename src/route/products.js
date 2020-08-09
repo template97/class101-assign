@@ -112,20 +112,26 @@ class Products extends Component {
         });
 
         let selected = {};
-		let temp = JSON.parse(localStorage.getItem('itemSelected')) || [];
-		
+		let temp = JSON.parse(localStorage.getItem('itemSelected')) || {};
+		let total = 0;
+
         if (temp !== null && temp.length !== 0){
-		 	selected = temp;
+			selected = temp;
 		}
         else{
         	productItems.map(function(data){
-            	selected[data.id] = false;
+				selected[data.id] = false;
 			});
 		}
-        
+		
+		productItems.map(function(data){
+			if( selected[data.id] === true ) total += 1;
+		});
+
         this.state = { 
             offset: 0,
-            itemSelected: selected
+			itemSelected: selected,
+			totalSelected: total
         };
     }
      
@@ -140,21 +146,27 @@ class Products extends Component {
         nextSelected[data.id] = false;
         
         this.setState({
-            itemSelected: nextSelected
+			itemSelected: nextSelected,
+			totalSelected: this.state.totalSelected-1
         })        
-		console.log(  JSON.stringify(nextSelected));
-        localStorage.setItem('itemSelected',  JSON.stringify(nextSelected));
+		
+		localStorage.setItem('itemSelected',  JSON.stringify(nextSelected));
     }
 
     handleSelect = (data) => {
+		if( this.state.totalSelected >= 3){
+			console.log("cart is full!");
+			return;
+		}
+
         let nextSelected = this.state.itemSelected;
         nextSelected[data.id] = true;
         
         this.setState({
-            itemSelected: nextSelected
+			itemSelected: nextSelected,
+			totalSelected: this.state.totalSelected+1
         })
-		console.log(  JSON.stringify(nextSelected));
-        localStorage.setItem('itemSelected',  JSON.stringify(nextSelected));
+		localStorage.setItem('itemSelected',  JSON.stringify(nextSelected));
     }
     
     render() {
