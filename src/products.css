@@ -1,3 +1,35 @@
+/* product */
+
+.productDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.mainTitle {
+    height: 100px;
+    font-size: 50px;
+    text-align: center;    
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* cart */
+
+.cartDisplay {
+    width: 700px;
+    display: flex;
+    /* justify-content: center; 
+    align-items: center; */
+    padding-left: 50px;
+}
+
+/* item for product */
 
 .itemForProducts{
     width: 320px;
@@ -5,14 +37,6 @@
 
     padding: 10px;
 
-}
-
-.itemForCart{
-    width: 700px;
-    display: flex;
-    /* justify-content: center; 
-    align-items: center; */
-    padding-left: 50px;
 }
 
 .itemImagePlaceholder{
@@ -23,42 +47,95 @@
     justify-content: center;
     align-items: center;
 }
-.itemImage {
+
+
+#itemProductImage {
     width: 320px;
+    height: 160px;
     overflow: hidden;    
 }
 
-.itemDescription {
-    font-size: 16px;
-}
-.itemTitle{
-    height: 80px;
+#productItemTitle{
+    height: 60px;
     /* text-align: center; */
-    font-size: 20px;
+    font-size: 18px;
 }
-.itemDisplay {
+
+#productItemScore{
+    /* height: 80px;
+    text-align: center; */
+    font-size: 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#productItemPrice {
+    /* padding: 10px;
+    width: 160px; */
+    font-size: 18px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* item for cart */
+
+.itemForCart{
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
 }
 
-.itemDescription {
-    width: 300px;
-}
-
 .cartPlaceholder{
     display: flex;
 }
 
-.pagination {
+
+#itemCartImage {
+    width: 320px;
+    overflow: hidden;    
+}
+
+#cartItemTitle{
+    height: 60px;
+    /* text-align: center; */
+    font-size: 20px;
+
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.mainTitle {
-    height: 100px;
-    font-size: 50px;
-    text-align: center;    
+#cartItemScore{
+    /* height: 80px;
+    text-align: center; */
+    font-size: 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cartItemPrice {
+    padding: 10px;
+    width: 160px;
+    font-size: 20px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cartItemCoupon {
+    padding: 10px;
+    width: 200px;
+    font-size: 16px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

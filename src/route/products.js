@@ -161,7 +161,7 @@ class Products extends Component {
         let selectedData = productItems.slice(this.state.offset,this.state.offset+paginationSize);
 
         let items = (
-            <div className="itemDisplay">
+            <div className="productDisplay">
                 {selectedData.map(data => (
                     <div>
                         <Item data={data} type={1}/>
@@ -176,6 +176,7 @@ class Products extends Component {
         return (
             <div>
 				<div className="mainTitle">Class 101</div>
+				<Link to={'/cart'}><button>장바구니</button></Link>
                 {items}
 				<div className="pagination">
                 <Pagination 
@@ -186,7 +187,7 @@ class Products extends Component {
                     onClick={(e, offset) => this.handleClick(offset)}
                 />
 				</div>
-                <Link to={'/cart'}><button>장바구니</button></Link>
+                
             </div>
         );
     }

@@ -164,7 +164,7 @@ class Cart extends Component {
                 {productItems.map(data => (
                     <div >
                         {this.state.itemSelected[data.id]
-                            ? <div className="itemForCart">
+                            ? <div className="cartDisplay">
                                 <FormControlLabel
                                     control={
                                     <Checkbox
