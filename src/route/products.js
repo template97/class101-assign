@@ -175,13 +175,17 @@ class Products extends Component {
         )
         return (
             <div>
+				<div className="mainTitle">Class 101</div>
                 {items}
+				<div className="pagination">
                 <Pagination 
                     limit={paginationSize}
                     offset={this.state.offset}
-                    total={productItems.length}
+					total={productItems.length}
+					size={'large'}
                     onClick={(e, offset) => this.handleClick(offset)}
                 />
+				</div>
                 <Link to={'/cart'}><button>장바구니</button></Link>
             </div>
         );

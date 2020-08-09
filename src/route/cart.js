@@ -162,9 +162,9 @@ class Cart extends Component {
         let items = (
             <div>
                 {productItems.map(data => (
-                    <div>
+                    <div >
                         {this.state.itemSelected[data.id]
-                            ? <div>
+                            ? <div className="itemForCart">
                                 <FormControlLabel
                                     control={
                                     <Checkbox
@@ -174,7 +174,7 @@ class Cart extends Component {
                                         color="primary"
                                     />
                                     }
-                                    label="구매하기"
+                                    // label="구매하기"
                                 />
                                 <Item data={data} type={2}/> 
                             </div>
@@ -235,6 +235,8 @@ class Cart extends Component {
 
         return (
             <div>
+                <div className="mainTitle">Class 101</div>
+                <div>총 금액 : {totalPrice}</div>
                 {items}
                 {coupon}
                 <div>총 금액 : {totalPrice}</div>
