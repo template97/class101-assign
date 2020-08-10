@@ -12,7 +12,7 @@
     height: 100px;
     font-size: 50px;
     text-align: center;    
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .pagination {
@@ -30,19 +30,53 @@
 
 .goCartButton {
     position: absolute;
-    top: 50px;
+    top: 25px;
     right: 110px;
 }
 /* cart */
 
 .cartDisplay {
-    width: 700px;
+    width: fit-content;
     display: flex;
     /* justify-content: center; 
     align-items: center; */
-    padding-left: 50px;
+    margin-left: 80px;
+    padding: 5px;
+    margin-top: 10px;
+    border: 1px solid rgba(34,36,38,.15);
 }
 
+.cartCoupons{
+    justify-content: right;
+    align-items: center;
+    text-align: center;
+    font-size: 32px;
+    width: 320px;
+}
+
+.goProductsButton {
+    position: absolute;
+    top: 25px;
+    right: 110px;
+}
+
+.cartPayment{
+    width: fit-content;
+    margin-left: 80px;
+    padding: 5px;
+    margin-top: 20px;
+    border: 1px solid rgba(34,36,38,.15);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cartPaymentText{
+    justify-content: center;
+    text-align: center;
+    width: 320px;
+}
 /* item for product */
 
 .itemForProducts{
@@ -55,13 +89,12 @@
 
 .itemImagePlaceholder{
     width: 320px;
-    height: 180px;
+    height: 160px;
     
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 
 #itemProductImage {
     width: 320px;
@@ -101,7 +134,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
 }
 
 .cartPlaceholder{
@@ -111,6 +144,7 @@
 
 #itemCartImage {
     width: 320px;
+    height: 160px;
     overflow: hidden;    
 }
 

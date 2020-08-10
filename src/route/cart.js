@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {Item} from '../component'
-
+import Button from '@material-ui/core/Button';
+import {Segment} from 'semantic-ui-react';
+import { GrReturn } from 'react-icons/gr';
+import {RiCoupon3Line} from "react-icons/ri";
+import { FaEquals, FaMinus } from 'react-icons/fa';
 let productItems = [
     {
       id: 'B9vUv0E0ibc0X55kVVLr',
@@ -141,6 +144,10 @@ class Cart extends Component {
 
     }
 
+    handleGoProducts = () => {
+		this.props.history.replace('products');
+	}
+
     handleChange = (event) => {
         console.log(event.target.name);
         let temp = this.state.itemChecked;
@@ -184,10 +191,8 @@ class Cart extends Component {
                 ))}
             </div>
         )
-
        
         let coupon = (
-            
             coupons.map( (data, index) => (
                 <div>
                     <FormControlLabel
@@ -238,13 +243,32 @@ class Cart extends Component {
         return (
             <div>
                 <div className="mainTitle">Class 101</div>
-                <div>판매 금액 : {totalPrice}</div>
-                <div>쿠폰 할인 : {totalPrice-discountedPrice}</div>
-                <div>최종 금액 : {discountedPrice}</div>
+                <div className="goProductsButton">
+                	<Button style={{color:"black", width:"200px", fontSize:"16px"}} onClick={this.handleGoProducts}><GrReturn size={54}></GrReturn>돌아가기</Button>
+				</div>
                 {items}
-                {coupon}
-                <div>총 금액 : {totalPrice}</div>
-                <Link to={'/products'}><button>돌아가기</button></Link>
+                
+                <div className="cartPayment">
+                    <div className="cartCoupons">
+                        <div>Coupons</div>
+                        {coupon}
+                    </div>
+                    <div className="cartPaymentText">
+                        <div style={{fontSize:"20px"}}>판매 금액</div>
+                        <div style={{fontSize:"32px"}}>{totalPrice}</div>
+                    </div>
+                    <FaMinus size={32}/>
+                    <div className="cartPaymentText">
+                        <div  style={{fontSize:"20px"}}>쿠폰 할인</div>
+                        <div style={{fontSize:"32px"}}>{totalPrice-discountedPrice}</div>
+                    </div>
+                    <FaEquals size={32}/>
+                    <div className="cartPaymentText">
+                        <div  style={{fontSize:"20px"}}>최종 금액</div>
+                        <div style={{fontSize:"32px"}}>{discountedPrice}</div>
+                    </div>
+                </div>
+                
             </div>
         )
     }
