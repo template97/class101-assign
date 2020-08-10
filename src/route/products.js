@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Pagination from "material-ui-flat-pagination";
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import { BsBagFill, BsBag} from 'react-icons/bs';
+import {TiShoppingCart} from 'react-icons/ti';
 
 import {Item} from '../component'
 
@@ -135,11 +137,15 @@ class Products extends Component {
         };
     }
      
-    handleClick = (o) => {
+    handlePageClick = (o) => {
         this.setState({ 
             offset: o
         });
-    }
+	}
+	
+	handleGoCart = () => {
+		this.props.history.replace('cart');
+	}
 
     handleCancel = (data) => {
         let nextSelected = this.state.itemSelected;
@@ -178,8 +184,16 @@ class Products extends Component {
                     <div>
                         <Item data={data} type={1}/>
                         {this.state.itemSelected[data.id]
-                            ? <Button onClick={() => this.handleCancel(data)}>빼기</Button> 
-                            : <Button onClick={() => this.handleSelect(data)}>담기</Button>
+                            ? <div className="productButton">
+								<Button style={{color:"black", width:"200px", fontSize:"16px"}} onClick={() => this.handleCancel(data)}>
+									<BsBagFill size={30}/>장바구니에서 빼기
+								</Button>
+							</div>
+                            : <div className="productButton">
+								<Button style={{color:"gray", width:"200px", fontSize:"16px"}} onClick={() => this.handleSelect(data)}>
+									<BsBag size={30}/>장바구니에 담기
+								</Button>
+							</div>
                         }
                     </div>
                 ))}
@@ -187,19 +201,20 @@ class Products extends Component {
         )
         return (
             <div>
-				<div className="mainTitle">Class 101</div>
-				<Link to={'/cart'}><button>장바구니</button></Link>
-                {items}
-				<div className="pagination">
-                <Pagination 
-                    limit={paginationSize}
-                    offset={this.state.offset}
-					total={productItems.length}
-					size={'large'}
-                    onClick={(e, offset) => this.handleClick(offset)}
-                />
+                <div className="mainTitle">Class 101</div>
+				<div className="goCartButton">
+                	<Button style={{color:"black", width:"200px", fontSize:"16px"}} onClick={this.handleGoCart}><TiShoppingCart size={54}></TiShoppingCart>장바구니</Button>
 				</div>
-                
+                {items}
+                <div className="pagination">
+                        <Pagination 
+                            limit={paginationSize}
+                            offset={this.state.offset}
+                  total={productItems.length}
+                  size={'large'}
+                            onClick={(e, offset) => this.handlePageClick(offset)}
+                        />
+                </div>
             </div>
         );
     }

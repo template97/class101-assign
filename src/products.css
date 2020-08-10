@@ -5,12 +5,14 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
+    margin-top: 50px;
 }
 
 .mainTitle {
     height: 100px;
     font-size: 50px;
     text-align: center;    
+    margin-top: 50px;
 }
 
 .pagination {
@@ -19,6 +21,18 @@
     align-items: center;
 }
 
+.productButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.goCartButton {
+    position: absolute;
+    top: 50px;
+    right: 110px;
+}
 /* cart */
 
 .cartDisplay {
